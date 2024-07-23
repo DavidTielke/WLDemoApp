@@ -1,0 +1,45 @@
+﻿@model DavidTielke.DemoApp.UI.MvcClient.Models.HomeIndexViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Buchungen</h1>
+    
+    @using (Html.BeginForm("Insert"))
+    {
+        <input type="number" name="Id" />
+        <input type="date" name="Start" />
+        <input type="date" name="End" />
+        <input type="number" name="RoomNumber" />
+        <input type="number" name="ContactId" />
+        <input type="submit" value="Hinzufügen"/>
+    }
+    
+    <hr/>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Start</th>
+            <th>Ende</th>
+            <th>Roomnumber</th>
+            <th>Contact ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var booking in Model.Bookings)
+        {
+            <tr>
+                    <td>@booking.Id</td>
+                    <td>@booking.Start.ToShortDateString()</td>
+                    <td>@booking.End.ToShortDateString()</td>
+                    <td>@booking.RoomNumber</td>
+                    <td>@Model.Contacts[booking.Id].Name</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
